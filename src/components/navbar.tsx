@@ -2,6 +2,7 @@ import Link from 'next/link'
 import MaxwidthWrapper from "./maxwidth-wrapper";
 import { buttonVariants } from './ui/button';
 import { ArrowRight } from 'lucide-react';
+import MobileNav from './mobile-nav';
 
 export default function Navbar() {
   return (
@@ -15,6 +16,7 @@ export default function Navbar() {
           </Link>
 
           {/* Mobile nav goese here  */}
+          <MobileNav isAuth={false} />
 
           <div className='hidden items-center space-x-4 sm:flex'>
             <>
