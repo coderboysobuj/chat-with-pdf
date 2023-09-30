@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
+
 export default function MobileNav({ isAuth }: { isAuth: boolean }) {
   const [isOpen, setOpen] = useState<boolean>(false);
   const toggleOpen = () => setOpen(prev => !prev);
