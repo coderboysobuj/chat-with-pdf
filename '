@@ -1,6 +1,0 @@
-"use client"
-export default function AuthCallback() {
-  return (
-    <h1>Callback</h1>
-  )
-}
