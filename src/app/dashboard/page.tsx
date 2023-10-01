@@ -1,3 +1,4 @@
+import Dashboard from "@/components/dashboard";
 import MaxwidthWrapper from "@/components/maxwidth-wrapper";
 import { db } from "@/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
@@ -19,10 +20,6 @@ export default async function DashboardPage() {
 
 
   return (
-    <MaxwidthWrapper>
-      <h1 className="text-blue-600 text-3xl font-semibold">
-        {user.given_name} {" "} {user.family_name}
-      </h1>
-    </MaxwidthWrapper>
+    <Dashboard />
   )
 }
