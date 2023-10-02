@@ -42,6 +42,32 @@ const onUploadComplete = async ({ metadata, file }: {
       uploadStatus: 'PROCESSING',
     }
   });
+
+  try {
+
+    await db.file.update({
+      where: {
+        id: createdFile.id,
+      },
+      data: {
+        uploadStatus: 'SUCCESS'
+      }
+    });
+
+
+
+  } catch (error: any) {
+    console.log("Fetch error", error);
+
+    await db.file.update({
+      where: {
+        id: createdFile.id,
+      },
+      data: {
+        uploadStatus: 'FAILED'
+      }
+    })
+  }
 }
 
 export const ourFileRouter = {
