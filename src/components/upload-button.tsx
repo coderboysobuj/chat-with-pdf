@@ -9,6 +9,7 @@ import { useUploadThing } from "@/lib/uploadthing";
 import { Cloud, FileIcon, Loader2 } from "lucide-react";
 import { Progress } from "./ui/progress";
 import toast from "react-hot-toast";
+import { trpc } from "@/app/_trpc/client";
 
 
 const UploadDropzone = ({
@@ -27,6 +28,14 @@ const UploadDropzone = ({
   const { startUpload } = useUploadThing(
     isSubscribed ? 'proPlanUploader' : 'freePlanUploader'
   )
+
+  const { mutate: startPulling, isLoading } = trpc.getFile.useMutation({
+    onSuccess: (file) => {
+      router.push(`/dashboard/${file.id}`)
+    },
+    retry: true,
+    retryDelay: 500
+  });
 
 
   const startSimulatedProgress = () => {
@@ -71,7 +80,11 @@ const UploadDropzone = ({
         clearInterval(progressInterval)
         setUploadProgress(100);
 
-        // TODO start pulling pdf and push to chat page
+        // start pulling pdf and push to chat page
+
+        startPulling({
+          key
+        })
 
 
 
@@ -120,7 +133,7 @@ const UploadDropzone = ({
                     value={uploadProgress}
                     className='h-1  w-full'
                   />
-                  {uploadProgress === 100 ? (
+                  {uploadProgress === 100 || isLoading ? (
                     <div className='flex gap-1 items-center justify-center text-sm  text-center pt-2'>
                       <Loader2 className='h-3 w-3 animate-spin' />
                       Redirecting...
